@@ -27,12 +27,22 @@ public class UIManager : MonoBehaviour
     }
     public void OnToggleChanged()
     {
+        if (boxController.rotationMode != BoxController.RotationMode.Normal)
+        {
+            isObjectSpaceToggle.isOn = true;
+            return;
+        }
         OnToggleChangedAction?.Invoke(isObjectSpaceToggle.isOn);
         spaceTypeImage.sprite = isObjectSpaceToggle.isOn ? objectSpaceSprite : worldSpaceSprite;
     }
 
     public void OnRotationGizmoChanged()
     {
+        if (boxController.spaceType != BoxController.SpaceType.Object)
+        {
+            isRotationGizmoEnabledToggle.isOn = false;
+            return;
+        }
         OnRotationGizmoChangedAction?.Invoke(isRotationGizmoEnabledToggle.isOn);
         disabledRotationGizmoImage.enabled = !isRotationGizmoEnabledToggle.isOn;
     }
